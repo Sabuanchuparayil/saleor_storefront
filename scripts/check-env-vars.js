@@ -5,8 +5,12 @@
  * This script runs during the build process to verify NEXT_PUBLIC_* variables are available
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const logPath = path.join(__dirname, '../../.cursor/debug.log');
 
