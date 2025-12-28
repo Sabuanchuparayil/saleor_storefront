@@ -30,12 +30,27 @@ export function PickupHeaderContent() {
 			return null;
 		}
 
+		// #region agent log
+		fetch('http://127.0.0.1:7243/ingest/45b3a70a-4b28-4eaa-b1ed-5a2ad1f28c3e',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'PickupHeaderContent.tsx:33',message:'Reading env vars',data:{allNextPublicVars:Object.keys(process.env).filter(k=>k.startsWith('NEXT_PUBLIC_')).reduce((acc,k)=>{acc[k]=process.env[k];return acc;},{})},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+		// #endregion
+
 		const pickupServiceUrl = process.env.NEXT_PUBLIC_PICKUP_SERVICE_URL;
 		const channelSlug = process.env.NEXT_PUBLIC_DEFAULT_CHANNEL || 'default-channel';
 		
+		// #region agent log
+		fetch('http://127.0.0.1:7243/ingest/45b3a70a-4b28-4eaa-b1ed-5a2ad1f28c3e',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'PickupHeaderContent.tsx:40',message:'Env var values after read',data:{pickupServiceUrl,channelSlug,hasPickupServiceUrl:!!pickupServiceUrl,typeOfPickupServiceUrl:typeof pickupServiceUrl},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+		// #endregion
+		
 		if (!pickupServiceUrl) {
+			// #region agent log
+			fetch('http://127.0.0.1:7243/ingest/45b3a70a-4b28-4eaa-b1ed-5a2ad1f28c3e',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'PickupHeaderContent.tsx:46',message:'pickupServiceUrl is falsy',data:{pickupServiceUrl,channelSlug},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+			// #endregion
 			return null;
 		}
+
+		// #region agent log
+		fetch('http://127.0.0.1:7243/ingest/45b3a70a-4b28-4eaa-b1ed-5a2ad1f28c3e',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'PickupHeaderContent.tsx:50',message:'Creating PickupServiceClient',data:{pickupServiceUrl,channelSlug},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+		// #endregion
 
 		return new PickupServiceClient({
 			baseUrl: pickupServiceUrl,
