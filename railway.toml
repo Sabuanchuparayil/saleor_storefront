@@ -4,4 +4,4 @@ builder = "NIXPACKS"
 [deploy]
 healthcheckPath = "/api/health"
 healthcheckTimeout = 300
-startCommand = "corepack pnpm exec next start -p ${PORT:-3000}"
+startCommand = "node .next/standalone/server.js"
