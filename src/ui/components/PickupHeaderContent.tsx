@@ -48,7 +48,6 @@ export function PickupHeaderContent() {
 	const {
 		enabled,
 		selectedWarehouse,
-		enablePickupMode,
 		disablePickupMode,
 		loading,
 	} = usePickupMode({

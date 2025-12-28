@@ -63,7 +63,17 @@ export async function geocodeAddress(address: string, apiKey?: string): Promise<
 		throw new Error("Geocoding request failed");
 	}
 
-	const data = await response.json();
+	const data = (await response.json()) as {
+		status: string;
+		results?: Array<{
+			geometry: {
+				location: {
+					lat: number;
+					lng: number;
+				};
+			};
+		}>;
+	};
 
 	if (data.status !== "OK" || !data.results || data.results.length === 0) {
 		throw new Error("Address not found");
@@ -95,7 +105,7 @@ export function getStoredLocation(): Location | null {
 	if (typeof window === "undefined") return null;
 	try {
 		const stored = localStorage.getItem(STORAGE_KEY_LOCATION);
-		return stored ? JSON.parse(stored) : null;
+		return stored ? (JSON.parse(stored) as Location) : null;
 	} catch (error) {
 		console.warn("Failed to retrieve stored location:", error);
 		return null;

@@ -52,7 +52,7 @@ export function getStoredWarehouseData(): WarehouseInfo | null {
 	if (typeof window === "undefined") return null;
 	try {
 		const stored = localStorage.getItem(STORAGE_KEY_WAREHOUSE_DATA);
-		return stored ? JSON.parse(stored) : null;
+		return stored ? (JSON.parse(stored) as WarehouseInfo) : null;
 	} catch (error) {
 		console.warn("Failed to retrieve stored warehouse data:", error);
 		return null;

@@ -1,6 +1,6 @@
 /**
  * Product List Component with Click & Collect Support
- *
+ * 
  * This component wraps ProductList and integrates with pickup service
  * when Click & Collect mode is enabled.
  */
@@ -23,7 +23,6 @@ interface PickupProductListProps {
 
 export function PickupProductList({
 	initialProducts,
-	channel,
 	collectionSlug,
 	categorySlug,
 	searchQuery,
@@ -51,7 +50,11 @@ export function PickupProductList({
 				if (collectionSlug) filters.collections = [collectionSlug];
 				if (categorySlug) filters.categories = [categorySlug];
 
-				const data = await pickupService.getProducts(selectedWarehouse.id, filters, { first: 20 });
+				const data = await pickupService.getProducts(
+					selectedWarehouse.id,
+					filters,
+					{ first: 20 }
+				);
 
 				// Transform pickup service products to match ProductListItemFragment format
 				// Note: You may need to adjust this based on the actual API response structure
@@ -77,9 +80,9 @@ export function PickupProductList({
 			<div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
 				{Array.from({ length: 6 }).map((_, i) => (
 					<div key={i} className="animate-pulse">
-						<div className="h-64 rounded bg-neutral-200"></div>
-						<div className="mt-2 h-4 rounded bg-neutral-200"></div>
-						<div className="mt-2 h-4 w-3/4 rounded bg-neutral-200"></div>
+						<div className="h-64 bg-neutral-200 rounded"></div>
+						<div className="h-4 bg-neutral-200 rounded mt-2"></div>
+						<div className="h-4 bg-neutral-200 rounded mt-2 w-3/4"></div>
 					</div>
 				))}
 			</div>
@@ -88,3 +91,4 @@ export function PickupProductList({
 
 	return <ProductList products={products} />;
 }
+

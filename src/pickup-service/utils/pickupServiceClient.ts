@@ -43,11 +43,13 @@ export class PickupServiceClient {
 		});
 
 		if (!response.ok) {
-			const error = await response.json().catch(() => ({ detail: "Failed to discover warehouses" }));
+			const error = (await response.json().catch(() => ({ detail: "Failed to discover warehouses" }))) as {
+				detail?: string;
+			};
 			throw new Error(error.detail || `HTTP ${response.status}: ${response.statusText}`);
 		}
 
-		const data = await response.json();
+		const data = (await response.json()) as { warehouses?: WarehouseInfo[] };
 		return data.warehouses || [];
 	}
 
@@ -74,7 +76,9 @@ export class PickupServiceClient {
 		const response = await fetch(`${this.baseUrl}/pickup/products?${params}`);
 
 		if (!response.ok) {
-			const error = await response.json().catch(() => ({ detail: "Failed to fetch products" }));
+			const error = (await response.json().catch(() => ({ detail: "Failed to fetch products" }))) as {
+				detail?: string;
+			};
 			throw new Error(error.detail || `HTTP ${response.status}: ${response.statusText}`);
 		}
 
@@ -111,7 +115,9 @@ export class PickupServiceClient {
 		const response = await fetch(`${this.baseUrl}/pickup/products?${params}`);
 
 		if (!response.ok) {
-			const error = await response.json().catch(() => ({ detail: "Failed to fetch products" }));
+			const error = (await response.json().catch(() => ({ detail: "Failed to fetch products" }))) as {
+				detail?: string;
+			};
 			throw new Error(error.detail || `HTTP ${response.status}: ${response.statusText}`);
 		}
 
@@ -134,7 +140,9 @@ export class PickupServiceClient {
 		});
 
 		if (!response.ok) {
-			const error = await response.json().catch(() => ({ detail: "Failed to select warehouse" }));
+			const error = (await response.json().catch(() => ({ detail: "Failed to select warehouse" }))) as {
+				detail?: string;
+			};
 			throw new Error(error.detail || `HTTP ${response.status}: ${response.statusText}`);
 		}
 	}
@@ -149,6 +157,6 @@ export class PickupServiceClient {
 			throw new Error(`Health check failed: ${response.statusText}`);
 		}
 
-		return response.json();
+		return (await response.json()) as { status: string; service: string };
 	}
 }
