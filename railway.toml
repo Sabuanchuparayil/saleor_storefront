@@ -2,6 +2,6 @@
 builder = "NIXPACKS"
 
 [deploy]
-healthcheckPath = "/"
+healthcheckPath = "/api/health"
 healthcheckTimeout = 300
 startCommand = "corepack pnpm start"
