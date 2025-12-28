@@ -44,17 +44,6 @@ export function PickupHeaderContent() {
 		});
 	}, []);
 
-	// Only use the hook if service is available and component is mounted
-	const {
-		enabled,
-		selectedWarehouse,
-		disablePickupMode,
-		loading,
-	} = usePickupMode({
-		pickupService: pickupService!,
-		autoLoadStored: true,
-	});
-
 	// Don't render anything during SSR or if service is not configured
 	if (!mounted || !pickupService) {
 		// Debug: Log why component is not rendering
@@ -67,6 +56,17 @@ export function PickupHeaderContent() {
 		}
 		return null;
 	}
+
+	// Only use the hook if service is available and component is mounted
+	const {
+		enabled,
+		selectedWarehouse,
+		disablePickupMode,
+		loading,
+	} = usePickupMode({
+		pickupService: pickupService,
+		autoLoadStored: true,
+	});
 
 	return (
 		<>
