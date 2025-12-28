@@ -7,7 +7,7 @@
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
-		"start": "next start -p ${PORT:-3000}",
+		"start": "next start",
 		"predev": "pnpm run generate",
 		"prebuild": "pnpm run generate",
 		"lint": "eslint",
