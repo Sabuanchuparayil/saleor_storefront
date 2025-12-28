@@ -57,6 +57,14 @@ export function PickupHeaderContent() {
 
 	// Don't render anything during SSR or if service is not configured
 	if (!mounted || !pickupService) {
+		// Debug: Log why component is not rendering
+		if (typeof window !== 'undefined' && !pickupService) {
+			console.warn('[PickupHeaderContent] Not rendering:', {
+				mounted,
+				hasPickupServiceUrl: !!process.env.NEXT_PUBLIC_PICKUP_SERVICE_URL,
+				pickupServiceUrl: process.env.NEXT_PUBLIC_PICKUP_SERVICE_URL,
+			});
+		}
 		return null;
 	}
 
