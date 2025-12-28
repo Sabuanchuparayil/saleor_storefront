@@ -47,8 +47,12 @@ export function PickupHeaderContent() {
 	// Create a dummy pickup service if not available (hooks must be called unconditionally)
 	const dummyPickupService = useMemo(() => {
 		if (!pickupService) {
-			// Return a minimal dummy service that won't be used
+			// Return a minimal dummy service that matches PickupServiceClient type
+			// This won't be used since we return null early, but satisfies React hooks rules
 			return {
+				baseUrl: '',
+				channelSlug: 'default-channel',
+				defaultRadiusKm: 25,
 				discoverWarehouses: async () => [],
 				selectWarehouse: async () => {},
 				getProducts: async () => ({}),
