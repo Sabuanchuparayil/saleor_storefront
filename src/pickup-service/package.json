@@ -1,0 +1,29 @@
+{
+	"name": "@pickup-service/frontend",
+	"version": "1.0.0",
+	"description": "Click & Collect frontend integration components for Saleor storefronts",
+	"main": "index.ts",
+	"types": "index.ts",
+	"scripts": {
+		"build": "tsc",
+		"type-check": "tsc --noEmit"
+	},
+	"keywords": [
+		"saleor",
+		"click-and-collect",
+		"pickup",
+		"storefront",
+		"react"
+	],
+	"author": "",
+	"license": "MIT",
+	"peerDependencies": {
+		"react": ">=16.8.0",
+		"react-dom": ">=16.8.0"
+	},
+	"devDependencies": {
+		"@types/react": "^18.0.0",
+		"@types/react-dom": "^18.0.0",
+		"typescript": "^5.0.0"
+	}
+}
