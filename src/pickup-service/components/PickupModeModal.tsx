@@ -49,13 +49,13 @@ export const PickupModeModal: React.FC<PickupModeModalProps> = ({
 		},
 	});
 
-	const handleLocationSelected = async (location: Location) => {
+	const handleLocationSelected = async (_location: Location) => {
 		setStep("warehouse");
 
 		// Enable pickup mode and discover warehouses
 		try {
 			await enablePickupMode();
-		} catch (err) {
+		} catch {
 			// Error is handled by the hook
 		}
 	};
@@ -88,7 +88,7 @@ export const PickupModeModal: React.FC<PickupModeModalProps> = ({
 							<p>We need your location to find the nearest pickup points.</p>
 							<LocationPicker
 								onLocationSelected={handleLocationSelected}
-								onError={(err) => {
+								onError={() => {
 									// Error is displayed in LocationPicker
 								}}
 								showAddressInput={true}

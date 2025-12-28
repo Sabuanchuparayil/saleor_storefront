@@ -1,6 +1,6 @@
 /**
  * Pickup Header Content Component
- *
+ * 
  * Client component that handles Click & Collect toggle and modal
  * Separated to avoid issues with usePickupMode hook
  */
@@ -8,12 +8,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import {
-	ClickCollectToggle,
-	usePickupMode,
-	PickupModeModal,
-	PickupServiceClient,
-} from "../../pickup-service";
+import { ClickCollectToggle, usePickupMode, PickupModeModal, PickupServiceClient } from "../../pickup-service";
 
 export function PickupHeaderContent() {
 	const [modalOpen, setModalOpen] = useState(false);
@@ -31,13 +26,13 @@ export function PickupHeaderContent() {
 	// Initialize pickup service client-side only
 	const pickupService = useMemo(() => {
 		// Only initialize on client
-		if (typeof window === "undefined") {
+		if (typeof window === 'undefined') {
 			return null;
 		}
 
 		const pickupServiceUrl = process.env.NEXT_PUBLIC_PICKUP_SERVICE_URL;
-		const channelSlug = process.env.NEXT_PUBLIC_DEFAULT_CHANNEL || "default-channel";
-
+		const channelSlug = process.env.NEXT_PUBLIC_DEFAULT_CHANNEL || 'default-channel';
+		
 		if (!pickupServiceUrl) {
 			return null;
 		}
@@ -50,10 +45,15 @@ export function PickupHeaderContent() {
 	}, []);
 
 	// Only use the hook if service is available and component is mounted
-	const { enabled, selectedWarehouse, enablePickupMode, disablePickupMode, loading } = usePickupMode({
+	const {
+		enabled,
+		selectedWarehouse,
+		enablePickupMode,
+		disablePickupMode,
+		loading,
+	} = usePickupMode({
 		pickupService: pickupService!,
 		autoLoadStored: true,
-		enabled: !!pickupService && mounted,
 	});
 
 	// Don't render anything during SSR or if service is not configured
@@ -76,7 +76,9 @@ export function PickupHeaderContent() {
 				className="text-sm"
 			/>
 			{selectedWarehouse && (
-				<span className="hidden text-xs text-neutral-600 sm:inline">📍 {selectedWarehouse.name}</span>
+				<span className="text-xs text-neutral-600 hidden sm:inline">
+					📍 {selectedWarehouse.name}
+				</span>
 			)}
 			<PickupModeModal
 				pickupServiceOptions={{
@@ -90,3 +92,4 @@ export function PickupHeaderContent() {
 		</>
 	);
 }
+
