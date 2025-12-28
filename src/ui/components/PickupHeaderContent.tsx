@@ -49,16 +49,14 @@ export function PickupHeaderContent() {
 		if (!pickupService) {
 			// Return a minimal dummy service that matches PickupServiceClient type
 			// This won't be used since we return null early, but satisfies React hooks rules
+			// Using 'as unknown as' because PickupServiceClient has private properties
 			return {
-				baseUrl: '',
-				channelSlug: 'default-channel',
-				defaultRadiusKm: 25,
 				discoverWarehouses: async () => [],
 				selectWarehouse: async () => {},
 				getProducts: async () => ({}),
 				getProductsByLocation: async () => ({}),
 				healthCheck: async () => ({ status: 'ok', service: 'dummy' }),
-			} as PickupServiceClient;
+			} as unknown as PickupServiceClient;
 		}
 		return pickupService;
 	}, [pickupService]);
