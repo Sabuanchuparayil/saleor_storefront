@@ -44,6 +44,32 @@ export function PickupHeaderContent() {
 		});
 	}, []);
 
+	// Create a dummy pickup service if not available (hooks must be called unconditionally)
+	const dummyPickupService = useMemo(() => {
+		if (!pickupService) {
+			// Return a minimal dummy service that won't be used
+			return {
+				discoverWarehouses: async () => [],
+				selectWarehouse: async () => {},
+				getProducts: async () => ({}),
+				getProductsByLocation: async () => ({}),
+				healthCheck: async () => ({ status: 'ok', service: 'dummy' }),
+			} as PickupServiceClient;
+		}
+		return pickupService;
+	}, [pickupService]);
+
+	// Always call the hook (React rules), but only use it if service is available
+	const {
+		enabled,
+		selectedWarehouse,
+		disablePickupMode,
+		loading,
+	} = usePickupMode({
+		pickupService: dummyPickupService,
+		autoLoadStored: true,
+	});
+
 	// Don't render anything during SSR or if service is not configured
 	if (!mounted || !pickupService) {
 		// Debug: Log why component is not rendering
@@ -56,17 +82,6 @@ export function PickupHeaderContent() {
 		}
 		return null;
 	}
-
-	// Only use the hook if service is available and component is mounted
-	const {
-		enabled,
-		selectedWarehouse,
-		disablePickupMode,
-		loading,
-	} = usePickupMode({
-		pickupService: pickupService,
-		autoLoadStored: true,
-	});
 
 	return (
 		<>
