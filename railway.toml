@@ -4,4 +4,4 @@ builder = "NIXPACKS"
 [deploy]
 healthcheckPath = "/api/health"
 healthcheckTimeout = 300
-startCommand = "PORT=${PORT:-3000} node .next/standalone/server.js"
+startCommand = "cd /app && corepack pnpm install --frozen-lockfile && corepack pnpm start"
