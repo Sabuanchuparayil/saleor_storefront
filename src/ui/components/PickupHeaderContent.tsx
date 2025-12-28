@@ -31,7 +31,7 @@ export function PickupHeaderContent() {
 		}
 
 		// #region agent log
-		fetch('http://127.0.0.1:7243/ingest/45b3a70a-4b28-4eaa-b1ed-5a2ad1f28c3e',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'PickupHeaderContent.tsx:33',message:'Reading env vars',data:{allNextPublicVars:Object.keys(process.env).filter(k=>k.startsWith('NEXT_PUBLIC_')).reduce((acc,k)=>{acc[k]=process.env[k];return acc;},{})},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+		fetch('http://127.0.0.1:7243/ingest/45b3a70a-4b28-4eaa-b1ed-5a2ad1f28c3e',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'PickupHeaderContent.tsx:33',message:'Reading env vars',data:{allNextPublicVars:Object.keys(process.env).filter(k=>k.startsWith('NEXT_PUBLIC_')).reduce((acc:Record<string,string|undefined>,k)=>{acc[k]=process.env[k];return acc;},{})},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
 		// #endregion
 
 		const pickupServiceUrl = process.env.NEXT_PUBLIC_PICKUP_SERVICE_URL;
